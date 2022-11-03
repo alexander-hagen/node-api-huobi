@@ -114,7 +114,7 @@ For support on using the API's or development issues, please refer to the offici
 | placeOrders | https://huobiapi.github.io/docs/spot/v1/en/#place-a-batch-of-orders |
 | cancelOrder | https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-an-order-based-on-client-order-id |
 | getOrders | https://huobiapi.github.io/docs/spot/v1/en/#get-all-open-orders |
-| CancelOrders | https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-criteria https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-ids |
+| cancelOrders | https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-criteria https://huobiapi.github.io/docs/spot/v1/en/#submit-cancel-for-multiple-orders-by-ids |
 | cancelAllOrders | https://huobiapi.github.io/docs/spot/v1/en/#dead-man-s-switch |
 | getOrderDetails | https://huobiapi.github.io/docs/spot/v1/en/#get-the-order-detail-of-an-order https://huobiapi.github.io/docs/spot/v1/en/?json#get-the-order-detail-of-an- |
 | getMatchResult | https://huobiapi.github.io/docs/spot/v1/en/#get-the-match-result-of-an-order |
