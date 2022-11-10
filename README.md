@@ -1,5 +1,7 @@
 # node-api-huobi
 
+**FfunctionWARNING: This package is still early beta! Expect breaking changes until this sees a major release.**
+
 Non-official implementation of Huobi's API's. Developed for personal use.
 
 For support on using the API's or development issues, please refer to the official API documentation. For questions regarding this package, please consult the code first.
@@ -144,7 +146,7 @@ For support on using the API's or development issues, please refer to the offici
 | getCrossLoanInfo | https://huobiapi.github.io/docs/spot/v1/en/#get-loan-interest-rate-and-quota-cross |
 | requestMarginLoan | https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-isolated https://huobiapi.github.io/docs/spot/v1/en/#request-a-margin-loan-cross |
 | repayIsolatedMarginLoan | https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-isolated |
-| repayCrossMarginLoan = function(id) | https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross |
+| repayCrossMarginLoan | https://huobiapi.github.io/docs/spot/v1/en/#repay-margin-loan-cross |
 | searchMarginOrders | https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-isolated https://huobiapi.github.io/docs/spot/v1/en/#search-past-margin-orders-cross |
 | getMarginBalance | https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-isolated https://huobiapi.github.io/docs/spot/v1/en/#get-the-balance-of-the-margin-loan-account-cross |
 | getRepaymentReference | https://huobiapi.github.io/docs/spot/v1/en/#repayment-record-reference |
@@ -172,4 +174,57 @@ For support on using the API's or development issues, please refer to the offici
 
 ## __WEBSOCKET API__
 
-TO DO
+```javascript
+  const huobi=require('node-api-huobi');
+
+  const auth = {
+    apikey: 'MY_API_KEY',
+    secret: 'MY_API_SECRET'
+  };
+
+  const marketAPI=new huobi.sockets.marketApi();
+  const mbpAPI=new huobi.sockets.MBPApi();
+  const tradingAPI=new huobi.sockets.tradingApi(auth);
+
+  tradingAPI.setHandler('orders', (method,data) => { updateOrder(method,data); });
+  const res=await tradingAPI.subscribeOrderUpdates();
+```
+
+### MARKET DATA
+
+```javascript
+  const marketAPI=new huobi.sockets.marketApi();
+```
+
+|  API   | DESCRIPTION  |
+|  :----  | :----  |
+| subscribeCandles unsubscribeCandles getCandle | https://huobiapi.github.io/docs/spot/v1/en/#market-candlestick |
+| subscribeTickers | unsubscribeTickers | getTicker | https://huobiapi.github.io/docs/spot/v1/en/#market-ticker |
+| subscribeMarketDepth unsubscribeMarketDepth getMarketDepth | https://huobiapi.github.io/docs/spot/v1/en/#market-depth |
+| subscribeBests unsubscribeBests getBest | https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer |
+| subscribeTrades unsubscribeTrades getTrades | https://huobiapi.github.io/docs/spot/v1/en/#trade-detail |
+| subscribeStats unsubscribeStats getStats | https://huobiapi.github.io/docs/spot/v1/en/#market-details |
+| subscribeETP unsubscribeETP getETP | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-etp-real-time-nav |
+
+### MARKET BY PRICE (MBP) DATA
+
+```javascript
+  const mbpAPI=new huobi.sockets.MBPApi();
+```
+
+|  API   | DESCRIPTION  |
+|  :----  | :----  |
+| subscribeMBPIncremetal unsubscribeMBPIncremetal getMBPIncremetal | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update |
+| subscribeMBPRefresh unsubscribeMBPRefresh getMBPRefresh | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-refresh-update |
+
+### ACCOUNT AND ORDER
+
+```javascript
+  const tradingAPI=new huobi.sockets.tradingApi();
+```
+
+|  API   | DESCRIPTION  |
+|  :----  | :----  |
+| subscribeOrderUpdates unsubscribeOrderUpdates | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates |
+| subscribeTradeClearing unsubscribeTradeClearing | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing |
+| subscribeAccountChange unsubscribeAccountChange | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change= async |
