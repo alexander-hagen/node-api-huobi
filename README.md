@@ -1,6 +1,6 @@
 # node-api-huobi
 
-**FfunctionWARNING: This package is still early beta! Expect breaking changes until this sees a major release.**
+**WARNING: This package is still early beta! Expect breaking changes until this sees a major release.**
 
 Non-official implementation of Huobi's API's. Developed for personal use.
 
@@ -227,4 +227,4 @@ For support on using the API's or development issues, please refer to the offici
 |  :----  | :----  |
 | subscribeOrderUpdates unsubscribeOrderUpdates | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates |
 | subscribeTradeClearing unsubscribeTradeClearing | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing |
-| subscribeAccountChange unsubscribeAccountChange | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change= async |
+| subscribeAccountChange unsubscribeAccountChange | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change |
