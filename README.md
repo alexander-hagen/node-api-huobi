@@ -28,7 +28,8 @@ For support on using the API's or development issues, please refer to the offici
 | getMarketSymbolSettings | https://huobiapi.github.io/docs/spot/v1/en/#get-market-symbols-setting |
 | getChainsInfo | https://huobiapi.github.io/docs/spot/v1/en/#get-chains-information |
 | getChainCurrencies | https://huobiapi.github.io/docs/spot/v1/en/#apiv2-currency-amp-chains |
-| getMarketSymbolSettings | https://huobiapi.github.io/docs/spot/v1/en/#get-current-timestamp |
+| getSymbolSettings | https://huobiapi.github.io/docs/spot/v1/en/#get-market-symbols-setting |
+| getTimestamp | https://huobiapi.github.io/docs/spot/v1/en/#get-current-timestamp |
 
 ### Market Data
 
