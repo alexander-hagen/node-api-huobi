@@ -186,8 +186,20 @@ For support on using the API's or development issues, please refer to the offici
   const mbpAPI=new huobi.sockets.MBPApi();
   const tradingAPI=new huobi.sockets.tradingApi(auth);
 
-  tradingAPI.setHandler('orders', (method,data) => { updateOrder(method,data); });
-  const res=await tradingAPI.subscribeOrderUpdates();
+  tradingAPI.setHandler('orders', (symbol,method,data) => { updateOrder(symbol,method,data); });
+
+  tradingAPI.socket._ws.on('authenticated', async () => { // For market API's: initialized
+    const res=await tradingAPI.subscribeOrderUpdates();
+  });
+
+  tradingAPI.socket._ws.on('closed', async () => {
+    // do something, like clean-up and reconnect
+  });
+
+  function updateOrder(symbol.method,data) {
+    // do something
+  };
+
 ```
 
 ### MARKET DATA
@@ -196,15 +208,15 @@ For support on using the API's or development issues, please refer to the offici
   const marketAPI=new huobi.sockets.marketApi();
 ```
 
-|  API   | DESCRIPTION  |
-|  :----  | :----  |
-| subscribeCandles unsubscribeCandles getCandle | https://huobiapi.github.io/docs/spot/v1/en/#market-candlestick |
-| subscribeTickers | unsubscribeTickers | getTicker | https://huobiapi.github.io/docs/spot/v1/en/#market-ticker |
-| subscribeMarketDepth unsubscribeMarketDepth getMarketDepth | https://huobiapi.github.io/docs/spot/v1/en/#market-depth |
-| subscribeBests unsubscribeBests getBest | https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer |
-| subscribeTrades unsubscribeTrades getTrades | https://huobiapi.github.io/docs/spot/v1/en/#trade-detail |
-| subscribeStats unsubscribeStats getStats | https://huobiapi.github.io/docs/spot/v1/en/#market-details |
-| subscribeETP unsubscribeETP getETP | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-etp-real-time-nav |
+|  API   | HANDLER | DESCRIPTION  |
+|  :----  | :----  | :----  |
+| subscribeCandles unsubscribeCandles getCandle | market.kline | https://huobiapi.github.io/docs/spot/v1/en/#market-candlestick |
+| subscribeTickers unsubscribeTickers getTicker | market.ticker | https://huobiapi.github.io/docs/spot/v1/en/#market-ticker |
+| subscribeMarketDepth unsubscribeMarketDepth getMarketDepth | market.depth | https://huobiapi.github.io/docs/spot/v1/en/#market-depth |
+| subscribeBests unsubscribeBests getBest | market.bbo | https://huobiapi.github.io/docs/spot/v1/en/#best-bid-offer |
+| subscribeTrades unsubscribeTrades getTrades | market.trade | https://huobiapi.github.io/docs/spot/v1/en/#trade-detail |
+| subscribeStats unsubscribeStats getStats | market.detail | https://huobiapi.github.io/docs/spot/v1/en/#market-details |
+| subscribeETP unsubscribeETP getETP | market.etp | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-etp-real-time-nav |
 
 ### MARKET BY PRICE (MBP) DATA
 
@@ -212,10 +224,10 @@ For support on using the API's or development issues, please refer to the offici
   const mbpAPI=new huobi.sockets.MBPApi();
 ```
 
-|  API   | DESCRIPTION  |
-|  :----  | :----  |
-| subscribeMBPIncremetal unsubscribeMBPIncremetal getMBPIncremetal | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update |
-| subscribeMBPRefresh unsubscribeMBPRefresh getMBPRefresh | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-refresh-update |
+|  API   | HANDLER | DESCRIPTION  |
+|  :----  | :----  | :----  |
+| subscribeMBPIncremetal unsubscribeMBPIncremetal getMBPIncremetal | market.mbp | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-incremental-update |
+| subscribeMBPRefresh unsubscribeMBPRefresh getMBPRefresh | market.mbp.refresh | https://huobiapi.github.io/docs/spot/v1/en/#market-by-price-refresh-update |
 
 ### ACCOUNT AND ORDER
 
@@ -223,8 +235,8 @@ For support on using the API's or development issues, please refer to the offici
   const tradingAPI=new huobi.sockets.tradingApi();
 ```
 
-|  API   | DESCRIPTION  |
-|  :----  | :----  |
-| subscribeOrderUpdates unsubscribeOrderUpdates | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates |
-| subscribeTradeClearing unsubscribeTradeClearing | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing |
-| subscribeAccountChange unsubscribeAccountChange | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change |
+|  API   | HANDLER | DESCRIPTION  |
+|  :----  | :----  | :----  |
+| subscribeOrderUpdates unsubscribeOrderUpdates | orders | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-order-updates |
+| subscribeTradeClearing unsubscribeTradeClearing | trade.clearing | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-trade-details-amp-order-cancellation-post-clearing |
+| subscribeAccountChange unsubscribeAccountChange | accounts.update | https://huobiapi.github.io/docs/spot/v1/en/#subscribe-account-change |
