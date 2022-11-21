@@ -186,7 +186,7 @@ For support on using the API's or development issues, please refer to the offici
   const mbpAPI=new huobi.sockets.MBPApi();
   const tradingAPI=new huobi.sockets.tradingApi(auth);
 
-  tradingAPI.setHandler('orders', (symbol,method,data) => { updateOrder(symbol,method,data); });
+  tradingAPI.setHandler('orders', (symbol,method,data,option) => { updateOrder(symbol,method,data); });
 
   tradingAPI.socket._ws.on('authenticated', async () => { // For market API's: initialized
     const res=await tradingAPI.subscribeOrderUpdates();
@@ -196,7 +196,7 @@ For support on using the API's or development issues, please refer to the offici
     // do something, like clean-up and reconnect
   });
 
-  function updateOrder(symbol.method,data) {
+  function updateOrder(symbol,method,data) {
     // do something
   };
 
