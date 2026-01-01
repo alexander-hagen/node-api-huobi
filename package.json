@@ -1,6 +1,6 @@
 {
   "name": "node-api-huobi",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Non-official implementation of Huobi's API's",
   "jest": {
     "coverageReporters": [
