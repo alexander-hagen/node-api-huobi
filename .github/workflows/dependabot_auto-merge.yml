@@ -1,0 +1,40 @@
+name: Auto-merge Dependabot PRs
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Dependabot PR number to auto-merge'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot-auto-merge:
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+       github.actor == 'dependabot[bot]')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable auto-merge
+        if: >
+          (github.event_name == 'pull_request' &&
+           github.actor == 'dependabot[bot]') ||
+          (github.event_name == 'workflow_dispatch' &&
+           inputs.pr_number != '')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            gh pr merge "${{ github.event.pull_request.number }}" --auto --squash
+          else
+            gh pr merge "${{ inputs.pr_number }}" --auto --squash
+          fi
