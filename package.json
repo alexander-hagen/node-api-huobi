@@ -34,7 +34,7 @@
     "pako": "^3.0.0"
   },
   "devDependencies": {
-    "dotenv": "^17.2.2",
+    "dotenv": "^18.0.4",
     "istanbul-badges-readme": "^1.9.0",
     "jest": "^30.1.3"
   }
